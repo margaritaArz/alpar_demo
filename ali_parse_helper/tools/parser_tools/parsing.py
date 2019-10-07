@@ -17,30 +17,30 @@ session = Session()
 Base = declarative_base()
 
 
-class ParsingTasks(Base):
-    __tablename__ = 'mainapp_parsingtasks'
-
-    id = Column(Integer, primary_key=True)
-    link = Column(String)
-    activate = Column(Boolean)
-    update_time = Column(Integer)
-    results = relationship('ParsingResults', backref='parsingtasks')
-
-    def __repr__(self):
-        return f"<Task({self.id}, {self.activate}, {self.update_time})>"
-
-
-class ParsingResults(Base):
-    __tablename__ = 'mainapp_parsingresults'
-
-    id = Column(Integer, primary_key=True)
-    status = Column(Integer)
-    task_id_id = Column(Integer, ForeignKey('mainapp_parsingtasks.id'))
-    datetime = Column(DateTime)
-    json = Column(String)
-
-    def __repr__(self):
-        return f"<Result({self.id}, {self.json})>"
+# class ParsingTasks(Base):
+#     __tablename__ = 'mainapp_parsingtasks'
+#
+#     id = Column(Integer, primary_key=True)
+#     link = Column(String)
+#     activate = Column(Boolean)
+#     update_time = Column(Integer)
+#     results = relationship('ParsingResults', backref='parsingtasks')
+#
+#     def __repr__(self):
+#         return f"<Task({self.id}, {self.activate}, {self.update_time})>"
+#
+#
+# class ParsingResults(Base):
+#     __tablename__ = 'mainapp_parsingresults'
+#
+#     id = Column(Integer, primary_key=True)
+#     status = Column(Integer)
+#     task_id_id = Column(Integer, ForeignKey('mainapp_parsingtasks.id'))
+#     datetime = Column(DateTime)
+#     json = Column(String)
+#
+#     def __repr__(self):
+#         return f"<Result({self.id}, {self.json})>"
 
 
 def get_goods_parameters_selenium():
