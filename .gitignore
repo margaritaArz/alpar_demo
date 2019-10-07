@@ -94,3 +94,4 @@ local_settings.py
 **__pycache__
 **img
 **env
+geckodriver.exe
