@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>
+        {% block title %}
+            {{ title|title }}
+        {% endblock %}
+    </title>
+    {% block css %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    {% endblock %}
+</head>
+<body>
+    <h1>Задания для парсинга</h1>
+    <table border="1">
+        <tr>
+            {% for th_head in table_head %}
+                <th>{{ th_head }}</th>
+            {% endfor %}
+        </tr>
+        {% for object in object_list %}
+            <tr>
+                <td><span class="task_link"><a href="{{ object.link }}">{{ object.link|truncatechars:50 }}</a></span></td>
+                <td><span class="are_activate">
+                    {% if object.activate == True %}
+                        <span>Активно</span>
+                    {% else %}
+                        <span>Неактивно</span>
+                    {% endif %}
+                </span>
+                </td>
+                <td><span class="update_time">{{ object.update_time }}</span></td>
+                <td><span class="edit_link"><a href="">{{ object.id }}</a></span></td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -2,14 +2,22 @@ from selenium import webdriver
 import json
 from datetime import datetime
 import time
-
+import os
+from configparser import RawConfigParser
 
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, ForeignKey, Boolean, union
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 
 
-CONNECTION_STRING = 'postgresql+psycopg2://django_user:SuperNewPassword2019@localhost/django_db'
+local_config_path = os.path.join(os.getcwd(), 'local.conf')
+config = RawConfigParser()
+config.read(local_config_path)
+
+user = config.get('main', 'USER')
+passwd = config.get('main', 'PASSWORD')
+
+CONNECTION_STRING = f'postgresql+psycopg2://{user}:{passwd}@localhost/django_db'
 engine = create_engine(CONNECTION_STRING, echo=False)
 Session = sessionmaker(bind=engine)
 session = Session()

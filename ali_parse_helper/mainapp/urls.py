@@ -6,4 +6,5 @@ app_name = 'mainapp'
 
 urlpatterns = [
    path('', mainapp.main, name='index'),
+   path('user_tasks', mainapp.ListTasks.as_view(), name='user_tasks'),
 ]
