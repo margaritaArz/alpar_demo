@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+            {{ title|title }}
+        {% endblock %}
+    </title>
+</head>
+<body>
+    <form class="phrase_block_update" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="from_condition" value="{{ object.phrase_condition.pk }}">
+        {{ form.as_p}}
+        <input type="submit" value="Применить">
+    </form>
+</body>
+</html>
