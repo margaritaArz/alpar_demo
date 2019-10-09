@@ -19,7 +19,7 @@ class ParsingResults(models.Model):
         verbose_name = 'Результаты парсинга'
         verbose_name_plural = 'Результаты парсинга'
 
-    task_id = models.ForeignKey(ParsingTasks, verbose_name='ID задания', on_delete=models.CASCADE)
+    task_id = models.ForeignKey(ParsingTasks, verbose_name='ID задания', on_delete=models.CASCADE, related_name='task_id')
     status = models.IntegerField(verbose_name='Код статуса')
     json = models.TextField(verbose_name='JSON', default='')
     datetime = models.DateTimeField(verbose_name='Дата и время', auto_now_add=True)
