@@ -16,18 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import mainapp.views as mainapp
-<<<<<<< HEAD
 import settingapp.views as settingapp
-=======
->>>>>>> afa5e21e613f99dbf538812ca0e28e1d24bc3172
 from django.conf.urls import include
 
 urlpatterns = [
     path('', mainapp.main, name='main'),
     path('tasks/', include('mainapp.urls', namespace='tasks')),
-<<<<<<< HEAD
     path('settings/', include('settingapp.urls', namespace='settings')),
-=======
->>>>>>> afa5e21e613f99dbf538812ca0e28e1d24bc3172
     path('admin/', admin.site.urls),
 ]
