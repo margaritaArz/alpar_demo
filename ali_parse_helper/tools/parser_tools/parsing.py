@@ -2,53 +2,7 @@ from selenium import webdriver
 import json
 from datetime import datetime
 import time
-import os
-from configparser import RawConfigParser
-
-from sqlalchemy import create_engine, Column, Integer, String, DateTime, ForeignKey, Boolean, union
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, relationship
-
-
-local_config_path = os.path.join(os.getcwd(), 'local.conf')
-config = RawConfigParser()
-config.read(local_config_path)
-
-user = config.get('main', 'USER')
-passwd = config.get('main', 'PASSWORD')
-
-CONNECTION_STRING = f'postgresql+psycopg2://{user}:{passwd}@localhost/django_db'
-engine = create_engine(CONNECTION_STRING, echo=False)
-Session = sessionmaker(bind=engine)
-session = Session()
-
-Base = declarative_base()
-
-
-class ParsingTasks(Base):
-    __tablename__ = 'mainapp_parsingtasks'
-
-    id = Column(Integer, primary_key=True)
-    link = Column(String)
-    activate = Column(Boolean)
-    update_time = Column(Integer)
-    results = relationship('ParsingResults', backref='parsingtasks')
-
-    def __repr__(self):
-        return f"<Task({self.id}, {self.activate}, {self.update_time})>"
-
-
-class ParsingResults(Base):
-    __tablename__ = 'mainapp_parsingresults'
-
-    id = Column(Integer, primary_key=True)
-    status = Column(Integer)
-    task_id_id = Column(Integer, ForeignKey('mainapp_parsingtasks.id'))
-    datetime = Column(DateTime)
-    json = Column(String)
-
-    def __repr__(self):
-        return f"<Result({self.id}, {self.json})>"
+from models import session, ParsingResults, ParsingSettings
 
 
 def get_goods_parameters_selenium():
@@ -61,11 +15,15 @@ def get_goods_parameters_selenium():
                        'as final_table ' \
                        'where now() - (final_table.update_time * INTERVAL \'1 hour\') ' \
                        '> final_table.datetime or final_table.datetime is Null'
-    profile = webdriver.FirefoxProfile(r'C:\Users\DK\AppData\Roaming\Mozilla\Firefox\Profiles\i4xmbm85.default')
+    default_settings = session.query(ParsingSettings).filter_by(worker_name='default').first()
+    profile = webdriver.FirefoxProfile(default_settings.firefox_profile)
     browser = webdriver.Firefox(profile)
 
     while True:
         print('Run iteration...')
+        default_settings.start_iteration_time = datetime.now()
+        default_settings.last_ping_time = datetime.now()
+        session.commit()
 
         distinct_tasks = session.execute(query_time_limit)
         for task in distinct_tasks:
@@ -82,16 +40,20 @@ def get_goods_parameters_selenium():
             json_result = json.dumps(result_dict)
             print(json_result)
 
-            new_record = ParsingResults()
-            new_record.status = 1
-            new_record.datetime = datetime.now()
-            new_record.task_id_id = task[0]
-            new_record.json = json_result
-            session.add(new_record)
+            new_result_record = ParsingResults()
+            new_result_record.status = 1
+            new_result_record.datetime = datetime.now()
+            new_result_record.task_id_id = task[0]
+            new_result_record.json = json_result
+
+            session.add(new_result_record)
+            default_settings.last_ping_time = datetime.now()
             session.commit()
 
         print('Sleeping time...')
-        time.sleep(60 * 5)
+        default_settings.finish_iteration_time = datetime.now()
+        session.commit()
+        time.sleep(60 * default_settings.sleeping_time)
 
 
 get_goods_parameters_selenium()
