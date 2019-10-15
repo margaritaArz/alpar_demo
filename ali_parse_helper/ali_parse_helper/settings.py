@@ -83,9 +83,9 @@ WSGI_APPLICATION = 'ali_parse_helper.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django_db',
-        'USER': config.get('main', 'USER'),
-        'PASSWORD': config.get('main', 'PASSWORD'),
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'password',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
