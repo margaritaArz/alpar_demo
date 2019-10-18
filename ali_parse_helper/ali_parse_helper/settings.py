@@ -11,10 +11,14 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import sys
 from configparser import RawConfigParser
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+TOOLS_DIR = os.path.join(BASE_DIR, 'tools')
+sys.path.append(TOOLS_DIR)
 
 local_config_path = os.path.join(BASE_DIR, 'local.conf')
 config = RawConfigParser()
@@ -41,6 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mainapp.apps.MainappConfig',
+    'settingapp.apps.SettingappConfig',
+    'exportapp.apps.ExportappConfig',
 ]
 
 MIDDLEWARE = [

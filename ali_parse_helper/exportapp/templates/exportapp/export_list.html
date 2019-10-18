@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>
+        {% block title %}
+            {{ title|title }}
+        {% endblock %}
+    </title>
+    {% block css %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    {% endblock %}
+</head>
+<body>
+    <h1>Список отчётов</h1>
+    {% for object in object_list %}
+        <div class="one_export">
+            <td><span class="export_catch_date">
+                {% if object.catch_time == None %}
+                    Отчёт в очереди
+                {% else %}
+                    {{ object.catch_time }}
+                {% endif %}
+            </span></td>
+            <td><span class="export_file_link"><a href="{% static object.out_file_path %}" download="">Скачать</a></span></td>
+        </div>
+    {% endfor %}
+</body>
+</html>
