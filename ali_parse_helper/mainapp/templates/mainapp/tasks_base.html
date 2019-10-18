@@ -35,6 +35,7 @@
                 <td><span class="update_time">{{ object.update_time }}</span></td>
                 <td><span class="delete_task_link"><a href="{% url 'mainapp:delete_task' object.id %}">Удалить</a></span></td>
                 <td><span class="edit_task_link"><a href="{% url 'mainapp:update_task' object.id %}">Изменить</a></span></td>
+                <td><span class="create_export_hist"><a href="{% url 'export:create_export_history' object.id %}">Создать отчёт</a></span></td>
             </tr>
         {% endfor %}
     </table>
