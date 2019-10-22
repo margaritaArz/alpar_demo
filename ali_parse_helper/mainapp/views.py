@@ -3,6 +3,7 @@ from django.views.generic.list import ListView
 from .models import ParsingTasks
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.http import Http404
 
 
 def main(request):
@@ -19,6 +20,10 @@ class ListTasks(ListView):
         context['title'] = "Задания для парсинга"
         context['table_head'] = ['Ссылка', 'Активность задания', 'Периодичность(часов)']
         return context
+
+    def get_queryset(self):
+        queryset = ParsingTasks.objects.filter(task_user_id=self.request.user.id).all()
+        return queryset
 
 
 class CreateTask(CreateView):
@@ -44,6 +49,12 @@ class DeleteTask(DeleteView):
     model = ParsingTasks
     template_name = 'mainapp/delete_task.html'
 
+    def get(self, request, *args, **kwargs):
+        if self.get_object():
+            return super().get(request, *args, **kwargs)
+        else:
+            raise Http404
+
     # Продумать позже, чтобы не удалять задания, а деактивировать.
     # Чтобы из таблицы результатов не удалялись записи
     def get_context_data(self, **kwargs):
@@ -54,11 +65,22 @@ class DeleteTask(DeleteView):
     def get_success_url(self):
         return reverse_lazy('mainapp:user_tasks')
 
+    def get_object(self, queryset=None):
+        obj = super().get_object()
+        if self.request.user.id == obj.task_user_id.id:
+            return super().get_object()
+
 
 class UpdateTask(UpdateView):
     model = ParsingTasks
     template_name = 'mainapp/update_task.html'
     fields = '__all__'
+
+    def get(self, request, *args, **kwargs):
+        if self.get_object():
+            return super().get(request, *args, **kwargs)
+        else:
+            raise Http404
 
     def get_context_data(self, **kwargs):
         context = super(UpdateTask, self).get_context_data(**kwargs)
@@ -67,3 +89,8 @@ class UpdateTask(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('mainapp:user_tasks')
+
+    def get_object(self, queryset=None):
+        obj = super().get_object()
+        if self.request.user.id == obj.task_user_id.id:
+            return super().get_object()

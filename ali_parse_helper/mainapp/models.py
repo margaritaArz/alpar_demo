@@ -1,4 +1,5 @@
 from django.db import models
+from users.models import CustomUser
 
 
 class ParsingTasks(models.Model):
@@ -9,6 +10,8 @@ class ParsingTasks(models.Model):
     link = models.TextField(verbose_name='Ссылка')
     activate = models.BooleanField(verbose_name='Активно?', default=True)
     update_time = models.IntegerField(verbose_name='Время обновления(в часах)', default=24)
+    task_user_id = models.ForeignKey(CustomUser, verbose_name='ID пользователя', on_delete=models.CASCADE,
+                                related_name='task_user_id')
 
     def __str__(self):
         return self.link
