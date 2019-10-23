@@ -35,6 +35,7 @@ ADMINS = (
 
 ALLOWED_HOSTS = []
 
+LOGIN_REDIRECT_URL =  '/'
 
 # Application definition
 
@@ -46,8 +47,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
+    'pages.apps.PagesConfig',
+    # 'accounts.apps.AccountConfig',
+    'crispy_forms',
 ]
 AUTH_USER_MODEL = 'users.CustomUser'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -64,7 +70,7 @@ ROOT_URLCONF = 'ali_parse_helper.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'pages/templates/pages')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,6 +82,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'ali_parse_helper.wsgi.application'
 
@@ -89,7 +96,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'django_db',
-        'USER': config.get('main', 'USER'),
+        'USER': 'django_user',
         'PASSWORD': '123456',
         'HOST': '127.0.0.1',
         'PORT': '5432',

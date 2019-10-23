@@ -1,6 +1,8 @@
-from django.shortcuts import render
-#from django.http import HttpResponse
+from django.views.generic import CreateView
+from .models import CustomUser
 
 
-#def user(request):
-#    return HttpResponse("hello world")
+class UserCreateView(CreateView):
+    model = CustomUser
+    template_name = 'accounts/login.html'
+    fields = ('name', 'email', 'password')
