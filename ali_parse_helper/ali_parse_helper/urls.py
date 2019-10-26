@@ -26,4 +26,5 @@ urlpatterns = [
     path('settings/', include('settingapp.urls', namespace='settings')),
     path('export/', include('exportapp.urls', namespace='export')),
     path('admin/', admin.site.urls),
+    path('', include('pages.urls')),
 ]

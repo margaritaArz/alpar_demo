@@ -3,11 +3,15 @@ from django.contrib.auth.models import AbstractUser
 
 
 class CustomUser(AbstractUser):
-    pass
+    class Meta:
+        verbose_name = 'пользователь'
+        verbose_name_plural = 'пользователи'
 
-    #name = input('введите свое имя: ')
-    #email = input('Введите свою почту: ')
-    #age = input('Введите свой возраст: ')
-    #password = input('Введите пароль: ')
+    email = models.EmailField(blank=True)
+    password = models.CharField(max_length=50)
+    # avatar = models.ImageField(upload_to='users_avatars', blank=True) #install Pillow
+    age = models.PositiveIntegerField(verbose_name='возраст', default=5)
 
+    def __str__(self):
+        return self.username
 
