@@ -56,7 +56,6 @@ INSTALLED_APPS = [
     'mainapp.apps.MainappConfig',
     'settingapp.apps.SettingappConfig',
     'exportapp.apps.ExportappConfig',
-    'users.apps.UsersConfig'
 ]
 AUTH_USER_MODEL = 'users.CustomUser'
 
@@ -105,8 +104,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'django_db',
-        'USER': 'django_user',
-        'PASSWORD': '123456',
+        'USER': config.get('main', 'USER'),
+        'PASSWORD': config.get('main', 'PASSWORD'),
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
