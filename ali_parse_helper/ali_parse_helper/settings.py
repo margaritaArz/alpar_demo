@@ -56,10 +56,13 @@ INSTALLED_APPS = [
     'mainapp.apps.MainappConfig',
     'settingapp.apps.SettingappConfig',
     'exportapp.apps.ExportappConfig',
+    'users.apps.UsersConfig'
 ]
 AUTH_USER_MODEL = 'users.CustomUser'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+AUTH_USER_MODEL = 'users.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

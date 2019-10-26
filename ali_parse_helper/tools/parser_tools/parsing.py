@@ -15,7 +15,7 @@ def get_goods_parameters_selenium():
                        'as final_table ' \
                        'where now() - (final_table.update_time * INTERVAL \'1 hour\') ' \
                        '> final_table.datetime or final_table.datetime is Null'
-    default_settings = get_default_settings
+    default_settings = get_default_settings()
     profile = webdriver.FirefoxProfile(default_settings.firefox_profile)
     browser = webdriver.Firefox(profile)
 
