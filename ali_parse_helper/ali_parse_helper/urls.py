@@ -19,6 +19,7 @@ import mainapp.views as mainapp
 import settingapp.views as settingapp
 import exportapp.views as exportapp
 from django.conf.urls import include
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', mainapp.main, name='main'),
@@ -27,4 +28,5 @@ urlpatterns = [
     path('export/', include('exportapp.urls', namespace='export')),
     path('admin/', admin.site.urls),
     path('', include('pages.urls')),
+    # path('accounts/login/', auth_views.LoginView.as_view()),
 ]

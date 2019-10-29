@@ -4,6 +4,7 @@ from .models import ParsingTasks
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.http import Http404
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def main(request):
@@ -11,7 +12,7 @@ def main(request):
     return render(request, 'mainapp/index.html', context)
 
 
-class ListTasks(ListView):
+class ListTasks(LoginRequiredMixin, ListView):
     model = ParsingTasks
     template_name = 'mainapp/tasks_base.html'
 
@@ -26,7 +27,7 @@ class ListTasks(ListView):
         return queryset
 
 
-class CreateTask(CreateView):
+class CreateTask(LoginRequiredMixin, CreateView):
     model = ParsingTasks
     template_name = 'mainapp/create_task.html'
     fields = '__all__'
@@ -45,7 +46,7 @@ class CreateTask(CreateView):
         return reverse_lazy('mainapp:user_tasks')
 
 
-class DeleteTask(DeleteView):
+class DeleteTask(LoginRequiredMixin, DeleteView):
     model = ParsingTasks
     template_name = 'mainapp/delete_task.html'
 
@@ -71,7 +72,7 @@ class DeleteTask(DeleteView):
             return super().get_object()
 
 
-class UpdateTask(UpdateView):
+class UpdateTask(LoginRequiredMixin, UpdateView):
     model = ParsingTasks
     template_name = 'mainapp/update_task.html'
     fields = '__all__'

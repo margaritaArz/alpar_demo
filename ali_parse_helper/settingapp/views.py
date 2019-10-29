@@ -2,9 +2,10 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy
 from .models import ParsingSettings
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class ListSettings(ListView):
+class ListSettings(LoginRequiredMixin, ListView):
     model = ParsingSettings
     template_name = 'settingapp/list_workers.html'
 
@@ -16,7 +17,7 @@ class ListSettings(ListView):
         return context
 
 
-class UpdateWorker(UpdateView):
+class UpdateWorker(LoginRequiredMixin, UpdateView):
     model = ParsingSettings
     template_name = 'mainapp/update_task.html'
     fields = ('worker_name', 'firefox_profile', 'sleeping_time',)

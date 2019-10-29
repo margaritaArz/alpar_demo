@@ -4,9 +4,10 @@ from mainapp.models import ParsingTasks, ParsingResults
 from django.views.generic.base import RedirectView
 from django.urls import reverse_lazy
 from users.models import CustomUser
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class ExportHistoryList(ListView):
+class ExportHistoryList(LoginRequiredMixin, ListView):
     model = ExportHistory
     template_name = 'exportapp/export_list.html'
 
@@ -20,7 +21,7 @@ class ExportHistoryList(ListView):
         return queryset
 
 
-class CreateExportHistory(RedirectView):
+class CreateExportHistory(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, pk=None):
         results = ParsingResults.objects.filter(task_id=pk).all()
         current_user = CustomUser.objects.filter(id=self.request.user.id).first()
