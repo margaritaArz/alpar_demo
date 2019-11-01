@@ -23,7 +23,13 @@ class ListTasks(LoginRequiredMixin, ListView):
         return context
 
     def get_queryset(self):
-        queryset = ParsingTasks.objects.filter(task_user_id=self.request.user.id).all()
+        get_tasks_and_imgs = 'SELECT distinct on (tasks.id) tasks.id, main_pars_res.id as parsing_id, ' \
+                             'main_pars_res.json::json->\'img_\' as img_, tasks.link, tasks.activate, tasks.update_time ' \
+                             'FROM mainapp_parsingtasks as tasks ' \
+                             'left join mainapp_parsingresults as main_pars_res ' \
+                             'on main_pars_res.task_id_id = tasks.id ' \
+                             f'where tasks.task_user_id_id = {self.request.user.id} order by tasks.id, main_pars_res.datetime desc'
+        queryset = ParsingTasks.objects.raw(get_tasks_and_imgs)
         return queryset
 
 
