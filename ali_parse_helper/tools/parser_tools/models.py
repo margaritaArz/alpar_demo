@@ -83,13 +83,15 @@ class ExportHistory(Base):
 
 
 def get_tasks_by_hist_id(hist_id):
-    task_for_export = 'select main_pars_res.datetime, main_pars_res.json, main_pars_t.link ' \
-                      'from exportapp_exporthistory_results_id as exp_h_r ' \
-                      'inner join mainapp_parsingresults as main_pars_res ' \
-                      'on main_pars_res.id = exp_h_r.parsingresults_id ' \
-                      'inner join mainapp_parsingtasks as main_pars_t ' \
-                      'on main_pars_t.id = main_pars_res.task_id_id ' \
-        f'where exp_h_r.exporthistory_id = {hist_id};'
+    task_for_export = 'select main_pars_res.datetime, main_pars_res.json, ' \
+                      'main_pars_t.link from exportapp_exporthistory_results_id as exp_h_r ' \
+                      'inner join mainapp_parsingresults as ' \
+                      'main_pars_res on main_pars_res.id = exp_h_r.parsingresults_id ' \
+                      'inner join mainapp_parsingtasks as ' \
+                      'main_pars_t on main_pars_t.id = main_pars_res.task_id_id ' \
+                      'inner join exportapp_exporthistory as ' \
+                      'exp_hist on exp_hist.id = exp_h_r.exporthistory_id ' \
+                      f'where exp_h_r.exporthistory_id = {hist_id} and exp_hist.user_id_id = main_pars_t.task_user_id_id;'
     return session.execute(task_for_export)
 
 

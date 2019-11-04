@@ -5,6 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.http import Http404
 from django.contrib.auth.mixins import LoginRequiredMixin
+from users.models import CustomUser
 
 
 def main(request):
@@ -36,17 +37,17 @@ class ListTasks(LoginRequiredMixin, ListView):
 class CreateTask(LoginRequiredMixin, CreateView):
     model = ParsingTasks
     template_name = 'mainapp/create_task.html'
-    fields = '__all__'
+    fields = ('link', 'activate', 'update_time')
 
     def get_context_data(self, **kwargs):
         context = super(CreateTask, self).get_context_data(**kwargs)
         context['title'] = 'Создать задачу для парсинга'
         return context
 
-    # def form_valid(self, form):
-    #     phrase_condition = get_object_or_404(PhrasesCondition, id=self.kwargs['pk'])
-    #     form.instance.phrase_condition = phrase_condition
-    #     return super(PhraseBlockCreateView, self).form_valid(form)
+    def form_valid(self, form):
+        task_user_id = CustomUser.objects.filter(pk=self.request.user.id).first()
+        form.instance.task_user_id = task_user_id
+        return super(CreateTask, self).form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy('mainapp:user_tasks')
