@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'settingapp.apps.SettingappConfig',
     'exportapp.apps.ExportappConfig',
 ]
+
 AUTH_USER_MODEL = 'users.CustomUser'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
