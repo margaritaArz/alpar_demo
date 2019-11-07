@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'crispy_forms',
 ]
+
 AUTH_USER_MODEL = 'users.CustomUser'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
