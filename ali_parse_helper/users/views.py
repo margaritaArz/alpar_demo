@@ -4,5 +4,5 @@ from .models import CustomUser
 
 class UserCreateView(CreateView):
     model = CustomUser
-    template_name = 'accounts/login.html'
+    template_name = 'accounts/../../templates/login.html'
     fields = ('name', 'email', 'password')
