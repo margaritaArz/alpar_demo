@@ -62,6 +62,8 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+AUTH_USER_MODEL = 'users.CustomUser'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -103,8 +105,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'django_db',
-        'USER': 'django_user',
-        'PASSWORD': '123456',
+        'USER': config.get('main', 'USER'),
+        'PASSWORD': config.get('main', 'PASSWORD'),
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }

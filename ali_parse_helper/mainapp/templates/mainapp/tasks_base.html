@@ -15,6 +15,7 @@
 <body>
     <h1>Задания для парсинга</h1>
     <a href="{% url 'mainapp:create_task' %}">Создать задачу</a>
+    <a href="{% url 'export:create_export_history' 0 %}">Выгрузить всё</a>
     <table border="1">
         <tr>
             {% for th_head in table_head %}
@@ -23,7 +24,8 @@
         </tr>
         {% for object in object_list %}
             <tr>
-                <td><span class="task_link"><a href="{{ object.link }}">{{ object.link|truncatechars:50 }}</a></span></td>
+                <td><a href="{{ object.link }}"><img src="{{ object.img_ }}" class="mini_img"/></a></td>
+                <!-- <td><span class="task_link"><a href="{{ object.link }}">{{ object.link|truncatechars:50 }}</a></span></td> -->
                 <td><span class="are_activate">
                     {% if object.activate == True %}
                         <span>Активно</span>

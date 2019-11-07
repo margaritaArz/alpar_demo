@@ -7,6 +7,10 @@ from models import session, ParsingResults, ParsingSettings, ExportHistory, get_
     get_django_static_path, update_history_by_id, get_export_task_ids, get_default_settings
 
 
+def get_simple_export_string(json_):
+    return [json_[value] for value in json_]
+
+
 def get_histories(hist_id):
     tasks = get_tasks_by_hist_id(hist_id)
 
@@ -19,7 +23,8 @@ def get_histories(hist_id):
         writer = csv.writer(out_file, delimiter=';')
         for task in tasks:
             json_obj = json.loads(task[1])
-            writer.writerow([task[0].date(), json_obj['title'], json_obj['price'], task[2]])
+            str_ = get_simple_export_string(json_obj)
+            writer.writerow([task[0].date(), *str_])
         update_history_by_id(hist_id, csv_file)
 
 

@@ -2,9 +2,15 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy
 from .models import ParsingSettings
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 
-class ListSettings(ListView):
+class IsSuperUserVies(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_superuser
+
+
+class ListSettings(IsSuperUserVies, ListView):
     model = ParsingSettings
     template_name = 'settingapp/list_workers.html'
 
@@ -16,7 +22,7 @@ class ListSettings(ListView):
         return context
 
 
-class UpdateWorker(UpdateView):
+class UpdateWorker(IsSuperUserVies, UpdateView):
     model = ParsingSettings
     template_name = 'mainapp/update_task.html'
     fields = ('worker_name', 'firefox_profile', 'sleeping_time',)

@@ -23,7 +23,10 @@
                     {{ object.catch_time }}
                 {% endif %}
             </span></td>
-            <td><span class="export_file_link"><a href="{% static object.out_file_path %}" download="">Скачать</a></span></td>
+            {% if object.catch_time == None %}
+                {% else %}
+                    <td><span class="export_file_link"><a href="{% static object.out_file_path %}" download="">Скачать</a></span></td>
+                {% endif %}
         </div>
     {% endfor %}
 </body>
