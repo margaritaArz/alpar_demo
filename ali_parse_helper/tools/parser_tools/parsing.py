@@ -2,35 +2,49 @@ from selenium import webdriver
 import json
 from datetime import datetime
 import time
+import logging
 from models import session, ParsingResults, ParsingSettings, get_default_settings
+
+
+logger = logging.getLogger('parser')
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+fh = logging.FileHandler('logs/parser.log', encoding='utf-8')
+fh.setLevel(logging.DEBUG)
+fh.setFormatter(formatter)
+logger.addHandler(fh)
+logger.setLevel(logging.DEBUG)
 
 
 def get_goods_parameters_selenium():
     query_time_limit = 'select * from ' \
-                       '(select distinct on (results.task_id_id) tasks.id, tasks.link, tasks.update_time, ' \
+                       '(select distinct on (tasks.id) tasks.id, tasks.link, tasks.update_time, ' \
                        'results.task_id_id, results.datetime ' \
                        'from mainapp_parsingtasks as tasks ' \
                        'left join mainapp_parsingresults as results ' \
-                       'on results.task_id_id = tasks.id order by results.task_id_id, results.datetime desc) ' \
+                       'on results.task_id_id = tasks.id order by tasks.id, results.task_id_id, results.datetime desc) ' \
                        'as final_table ' \
                        'where now() - (final_table.update_time * INTERVAL \'1 hour\') ' \
                        '> final_table.datetime or final_table.datetime is Null'
+    logger.info('Browser started')
     default_settings = get_default_settings()
     profile = webdriver.FirefoxProfile(default_settings.firefox_profile)
     browser = webdriver.Firefox(profile)
 
     while True:
         print('Run iteration...')
+        logger.info('Run iteration...')
         default_settings.start_iteration_time = datetime.now()
         default_settings.last_ping_time = datetime.now()
         session.commit()
 
         distinct_tasks = session.execute(query_time_limit)
-        for dict_task in distinct_tasks:
-            browser.get(dict_task[1])
 
-            result_dict = {}
+        for dict_task in distinct_tasks:
             try:
+                browser.get(dict_task[1])
+                logger.info(f'Try get {dict_task[1]}')
+                result_dict = {}
+
                 title = browser.find_element_by_class_name('product-title')
                 result_dict['title'] = title.text
 
@@ -74,6 +88,7 @@ def get_goods_parameters_selenium():
                 session.commit()
             except Exception as e:
                 print(f'Failed parse this {dict_task[1]}\n{e}')
+                logger.error(f'Failed parse this {dict_task[1]}\n{e}')
 
         print('Sleeping time...')
         default_settings.finish_iteration_time = datetime.now()
