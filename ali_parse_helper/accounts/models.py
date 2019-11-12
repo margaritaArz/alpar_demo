@@ -8,7 +8,7 @@ class CustomUser(AbstractUser):
         verbose_name_plural = 'пользователи'
 
     email = models.EmailField(blank=True)
-    password = models.CharField(max_length=50)
+    password = models.CharField(max_length=100)
     # avatar = models.ImageField(upload_to='users_avatars', blank=True) #install Pillow
     age = models.PositiveIntegerField(verbose_name='возраст', default=5)
 
