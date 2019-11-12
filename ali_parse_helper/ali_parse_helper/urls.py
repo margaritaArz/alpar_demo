@@ -20,6 +20,10 @@ import settingapp.views as settingapp
 import exportapp.views as exportapp
 from django.conf.urls import include
 from django.contrib.auth import views as auth_views
+from home.views import e_handler_404, e_handler_500
+
+handler404 = e_handler_404
+handler500 = e_handler_500
 
 urlpatterns = [
     path('', mainapp.main, name='main'),

@@ -37,7 +37,7 @@ ADMINS = (
        ('My name', 'name@gmail.com'),
 )
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 #LOGIN_REDIRECT_URL =  '/'
 
