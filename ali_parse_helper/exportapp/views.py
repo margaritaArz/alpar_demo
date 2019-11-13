@@ -3,7 +3,7 @@ from .models import ExportHistory
 from mainapp.models import ParsingTasks, ParsingResults
 from django.views.generic.base import RedirectView
 from django.urls import reverse_lazy
-from users.models import CustomUser
+from accounts.models import CustomUser
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -39,7 +39,6 @@ class CreateExportHistory(LoginRequiredMixin, RedirectView):
         create_exp_history.results_id.add(*results)
 
         return reverse_lazy('export:export_history_list')
-
 
 # def CreateAllExportHistory(LoginRequiredMixin, RedirectView):
 #     all_hist = 'select * from mainapp_parsingresults as res'

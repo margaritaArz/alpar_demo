@@ -37,9 +37,9 @@ ADMINS = (
        ('My name', 'name@gmail.com'),
 )
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
-LOGIN_REDIRECT_URL =  '/'
+#LOGIN_REDIRECT_URL =  '/'
 
 # Application definition
 
@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users.apps.UsersConfig',
+    'accounts.apps.UsersConfig',
     'pages.apps.PagesConfig',
     'crispy_forms',
     'mainapp.apps.MainappConfig',
@@ -58,11 +58,11 @@ INSTALLED_APPS = [
     'exportapp.apps.ExportappConfig',
 ]
 
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

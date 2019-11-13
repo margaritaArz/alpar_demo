@@ -1,6 +1,6 @@
 from django.db import models
 from mainapp.models import ParsingResults, ParsingTasks
-from users.models import CustomUser
+from accounts.models import CustomUser
 
 
 class ExportHistory(models.Model):
