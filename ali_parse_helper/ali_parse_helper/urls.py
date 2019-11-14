@@ -15,7 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+import mainapp.views as mainapp
+import settingapp.views as settingapp
+import exportapp.views as exportapp
+from django.conf.urls import include
+from django.contrib.auth import views as auth_views
+# from home.views import e_handler_404, e_handler_500
+
+# handler404 = e_handler_404
+# handler500 = e_handler_500
 
 urlpatterns = [
+    path('', mainapp.main, name='main'),
+    path('tasks/', include('mainapp.urls', namespace='tasks')),
+    path('settings/', include('settingapp.urls', namespace='settings')),
+    path('export/', include('exportapp.urls', namespace='export')),
     path('admin/', admin.site.urls),
+    path('', include('pages.urls')),
+    path('accounts/', include('accounts.urls')),
 ]

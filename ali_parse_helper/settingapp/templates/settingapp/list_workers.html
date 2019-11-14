@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>
+        {% block title %}
+            {{ title|title }}
+        {% endblock %}
+    </title>
+    {% block css %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    {% endblock %}
+</head>
+<body>
+    <h1>Настройки парсинга:</h1>
+    <table border="1">
+        <tr>
+            {% for th_head in table_head %}
+                <th>{{ th_head }}</th>
+            {% endfor %}
+        </tr>
+        {% for object in object_list %}
+            <tr>
+                <td><span class="settings_worker">{{ object.worker_name }}</span></td>
+                <td><span class="settings_ff_profile">{{ object.firefox_profile }}</span></td>
+                <td><span class="settings_sleeping_time">{{ object.sleeping_time }}</span></td>
+                <td><span class="settings_start_iter">{{ object.start_iteration_time }}</span></td>
+                <td><span class="settings_finish_iter">{{ object.finish_iteration_time }}</span></td>
+                <td><span class="settings_ping">{{ object.last_ping_time }}</span></td>
+                <td><span class="edit_worker"><a href="{% url 'settingapp:update_worker' object.id %}">Изменить</a></span></td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

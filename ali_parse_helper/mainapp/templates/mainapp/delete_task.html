@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+            {{ title|title }}
+        {% endblock %}
+    </title>
+</head>
+<body>
+    <div class="phrase_block_delete">
+        Уверены, что хотите удалить задание?
+        <form method="post">
+            {% csrf_token %}
+            <input class="btn btn-danger" type="submit" value="Удалить">
+        </form>
+        <button class="btn btn-success">
+            <a href="{{ request.META.HTTP_REFERER }}">
+                Отмена
+            </a>
+        </button>
+    </div>
+</body>
+</html>
