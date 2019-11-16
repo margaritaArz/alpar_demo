@@ -1,2 +1,16 @@
-<h1>Главная</h1>
-<a href="{% url 'mainapp:user_tasks' %}">Задачи для парсинга</a>
+{% extends 'base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  Привет, {{ user.username }}!
+  <p><a href="{% url 'mainapp:user_tasks' %}">Задачи для парсинга</a></p>>
+  <p><a href="{% url 'logout' %}">выйти</a></p>
+{% else %}
+  <p>Вы не залогинены.</p>
+  <a href="{% url 'login' %}">войти</a>
+{% endif %}
+{% endblock %}
+
+
