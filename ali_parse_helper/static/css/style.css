@@ -4,7 +4,7 @@ html {
 body {
     margin: 0;
     /*background-color: #f6e7ae;*/
-    background-color: #f7f5d1; /*#f6e7ae;*//*#f7f5d1;*/
+    background-color: #f7f5d1;
 }
 .mini_img {
     width: 100px;
@@ -20,22 +20,21 @@ a:visited {
     font-family:  tahoma, arial, verdana
 }
 a:hover {
-    color: *#2c9585;
+    color: #2c9585;
     text-decoration: underline;
     font-family:  tahoma, arial, verdana
 }
 .container_ {
     width: 960px;
     margin: 0 auto;
-    background-color: #f7f5d1;
     /*background-color: #f6e7ae;*/
-
+    background-color: #f7f5d1;
 }
 .tasks_list, .export_list, .index_list {
     background-color: #fff;
     border-radius: 8px;
     padding: 16px;
-    margin-top: 12px;
+    margin-top: 10px;
 }
 .index_list {
     text-align: center;
@@ -54,13 +53,13 @@ a:hover {
 }
 .like_bookmark a {
     background-color: #92cdb6;
-    padding: 12px;
-    border-radius: 15px 15px 0px 0px;
+    padding: 10px;
+    border-radius: 8px 8px 0px 0px;
     font-weight: bold;
     padding-bottom: 12px;
 }
 .like_bookmark a:hover {
-    background-color: #cfebbc; /*#c9b675;
+    background-color: #bcefd3; /*#c9b675;*/
 }
 .index_img {
     width: 400px;
