@@ -40,6 +40,7 @@ ADMINS = (
 ALLOWED_HOSTS = ["*"]  #Add your host here like ['www.beta800.net'] or ['*'], but don't use ['*'] for production.
 
 LOGIN_REDIRECT_URL =  '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Application definition
 
