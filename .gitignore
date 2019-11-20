@@ -93,7 +93,6 @@ local_settings.py
 *.json
 *.csv
 **__pycache__
-**img
 **env
 **exportfiles
 geckodriver.exe

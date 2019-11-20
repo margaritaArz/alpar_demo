@@ -1,33 +1,33 @@
-<!DOCTYPE html>
+{% extends 'pages/base.html' %}
+
 {% load static %}
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>
-        {% block title %}
-            {{ title|title }}
-        {% endblock %}
-    </title>
-    {% block css %}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    {% endblock %}
-</head>
-<body>
+
+{% block title %}
+    {{ title|title }}
+{% endblock %}
+
+
+{% block main %}
+
     <h1>Список отчётов</h1>
-    {% for object in object_list %}
-        <div class="one_export">
-            <td><span class="export_catch_date">
+    <div class="export_list">
+        {% for object in object_list %}
+            {% if not forloop.first %}
+                <hr noshade size="1">
+            {% endif %}
+            <div class="one_export">
+                <span class="export_catch_date">
+                    {% if object.catch_time == None %}
+                        Отчёт в очереди
+                    {% else %}
+                        {{ object.catch_time }}
+                    {% endif %}
+                </span>
                 {% if object.catch_time == None %}
-                    Отчёт в очереди
-                {% else %}
-                    {{ object.catch_time }}
-                {% endif %}
-            </span></td>
-            {% if object.catch_time == None %}
-                {% else %}
-                    <td><span class="export_file_link"><a href="{% static object.out_file_path %}" download="">Скачать</a></span></td>
-                {% endif %}
-        </div>
-    {% endfor %}
-</body>
-</html>
+                    {% else %}
+                        <span class="export_file_link"><a href="{% static object.out_file_path %}" download="">Скачать</a></span>
+                    {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

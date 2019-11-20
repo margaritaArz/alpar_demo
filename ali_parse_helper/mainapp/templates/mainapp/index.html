@@ -1,2 +1,41 @@
-<h1>Главная</h1>
-<a href="{% url 'mainapp:user_tasks' %}">Задачи для парсинга</a>
+{% extends 'base.html' %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'ali_parse_helper/style.css' %}"/>
+
+<nav class="navbar navbar-default">
+    <div class ="container-fluid">
+
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'mainapp:index' %}">Parser</a>
+        </div>
+
+        </div>
+</nav>
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    Привет, {{ user.username }}!
+    <p><a href="{% url 'mainapp:user_tasks' %}">Задачи для парсинга</a></p>
+    <p><a href="{% url 'logout' %}">выйти</a></p>
+  {% else %}
+    <p>Вы не залогинены.</p>
+    <a href="{% url 'login' %}">войти</a>
+  {% endif %}
+{% endblock %}
+
+{% block main %}
+  <div class="index_list">
+    <h1>Что это?</h1>
+    <p>Ты искал парсер для Алиэкспресса? Ты его нашёл!</p>
+    <p>Задача нашего портала предоставить возможность простейшего парсинга и выгрузки информации для товаров на Алиэкспресс.</p>
+    <h1>Как пользоваться?</h1>
+    <p>Тебе нужно всего лишь зарегистрироваться, добавить в задачи ссылку на интересующий товар:</p>
+    <img src="{% static 'img/screen1.jpg' %}" class="index_img"/>
+    <p>Затем в любое время выгрузить данные в формате CSV:</p>
+    <img src="{% static 'img/screen2.jpg' %}" class="index_img"/>
+  </div>
+{% endblock %}
+
