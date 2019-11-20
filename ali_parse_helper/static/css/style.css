@@ -4,7 +4,7 @@ html {
 body {
     margin: 0;
     /*background-color: #f6e7ae;*/
-    background-color: #f7f5d1;
+    background-color: #f7f5d1; /*#f6e7ae;*//*#f7f5d1;*/
 }
 .mini_img {
     width: 100px;
@@ -20,15 +20,16 @@ a:visited {
     font-family:  tahoma, arial, verdana
 }
 a:hover {
-    color: #2c9585;
+    color: *#2c9585;
     text-decoration: underline;
     font-family:  tahoma, arial, verdana
 }
 .container {
     width: 960px;
     margin: 0 auto;
-    /*background-color: #f6e7ae;*/
     background-color: #f7f5d1;
+    /*background-color: #f6e7ae;*/
+
 }
 .tasks_list {
     /*background-color: #f7f5d1;*/
@@ -36,7 +37,7 @@ a:hover {
     background-color: #fff;
     border-radius: 8px;
     padding: 16px;
-    margin-top: 10px;
+    margin-top: 12px;
 }
 .img_, .active_info, .update_time_div, .edit_and_del {
     display: inline-block;
@@ -52,10 +53,10 @@ a:hover {
 }
 .like_bookmark a {
     background-color: #92cdb6;
-    padding: 10px;
-    border-radius: 8px 8px 0px 0px;
+    padding: 12px;
+    border-radius: 15px 15px 0px 0px;
     font-weight: bold;
 }
 .like_bookmark a:hover {
-    background-color: #c9b675;
+    background-color: #cfebbc; /*#c9b675;
 }
