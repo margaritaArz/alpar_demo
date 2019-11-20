@@ -31,7 +31,7 @@ config.read(local_config_path)
 SECRET_KEY = config.get('main', 'SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ADMINS = (
        ('My name', 'name@gmail.com'),
@@ -39,7 +39,7 @@ ADMINS = (
 
 ALLOWED_HOSTS = ["*"]  #Add your host here like ['www.beta800.net'] or ['*'], but don't use ['*'] for production.
 
-LOGIN_REDIRECT_URL =  '/'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 # Application definition
