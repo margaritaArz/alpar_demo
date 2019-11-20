@@ -1,3 +1,5 @@
+{% load static %}
+
 <header>
   <a href="{% url 'home' %}">Главная страница</a> | <a href="{% url 'about' %}">О нас</a>
 </header>
@@ -11,17 +13,16 @@
     <meta charset="UTF-8">
     <link  rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"  crossorigin="anonymous">
-    <title>Регистрация пользователя</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
 </head>
-<body>
-    <div class="container d-flex h-100">
-        <div class="row justify-content-center">
-            <div class="col-10">
-                <h1 class="text-center"></h1>
-                {% block main %}
-                {% endblock %}
-            </div>
-      </div>
-    </div>
-  </body>
+    <body>
+        <div class="container_">
+            {% block main %}
+            {% endblock %}
+        </div>
+    </body>
 </html>
