@@ -6,16 +6,24 @@
 {% block content %}
   {% if user.is_authenticated %}
     Привет, {{ user.username }}!
-
+    <p><a href="{% url 'mainapp:user_tasks' %}">Задачи для парсинга</a></p>
     <p><a href="{% url 'logout' %}">выйти</a></p>
   {% else %}
     <p>Вы не залогинены.</p>
-    <li class="{% block login_active %}{% endblock %}"><a href="{% url 'login' %}">Войти</a></li>
-    <li class="{% block register_active %}{% endblock %}"><a href="{% url 'register' %}">Зарегистрироваться</a></li>
+    <a href="{% url 'login' %}">войти</a>
   {% endif %}
 {% endblock %}
 
 {% block main %}
+  <nav class="navbar navbar-default">
+    <div class ="container-fluid">
+
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'mainapp:index' %}">Parser</a>
+        </div>
+
+        </div>
+</nav>
   <div class="index_list">
     <h1>Что это?</h1>
     <p>Ты искал парсер для Алиэкспресса? Ты его нашёл!</p>
