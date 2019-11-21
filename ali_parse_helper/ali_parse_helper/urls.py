@@ -32,5 +32,5 @@ urlpatterns = [
     path('export/', include('exportapp.urls', namespace='export')),
     path('admin/', admin.site.urls),
     path('', include('pages.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),  # 'accounts.urls')),
+    path('accounts/', include('accounts.urls')),
 ]

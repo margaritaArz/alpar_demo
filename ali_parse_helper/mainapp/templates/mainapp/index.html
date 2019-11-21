@@ -1,28 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'ali_parse_helper/style.css' %}"/>
-
-<nav class="navbar navbar-default">
-    <div class ="container-fluid">
-
-        <div class="navbar-header">
-            <a class="navbar-brand" href="{% url 'mainapp:index' %}">Parser</a>
-        </div>
-
-        </div>
-</nav>
-
 {% block title %}Главная страница{% endblock %}
 
 {% block content %}
   {% if user.is_authenticated %}
     Привет, {{ user.username }}!
-    <p><a href="{% url 'mainapp:user_tasks' %}">Задачи для парсинга</a></p>
+
     <p><a href="{% url 'logout' %}">выйти</a></p>
   {% else %}
     <p>Вы не залогинены.</p>
-    <a href="{% url 'login' %}">войти</a>
+    <li class="{% block login_active %}{% endblock %}"><a href="{% url 'login' %}">Войти</a></li>
+    <li class="{% block register_active %}{% endblock %}"><a href="{% url 'register' %}">Зарегистрироваться</a></li>
   {% endif %}
 {% endblock %}
 

@@ -1,0 +1,68 @@
+html {
+    overflow-y: scroll;
+}
+body {
+    margin: 0;
+    /*background-color: #f6e7ae;*/
+    background-color: #f7f5d1;
+}
+.mini_img {
+    width: 100px;
+}
+a {
+    color: #2c9585;
+    text-decoration: none;
+    font-family:  tahoma, arial, verdana
+}
+a:visited {
+    color: #2c9585;
+    text-decoration: none;
+    font-family:  tahoma, arial, verdana
+}
+a:hover {
+    color: #2c9585;
+    text-decoration: underline;
+    font-family:  tahoma, arial, verdana
+}
+.container_ {
+    width: 960px;
+    margin: 0 auto;
+    /*background-color: #f6e7ae;*/
+    background-color: #f7f5d1;
+}
+.tasks_list, .export_list, .index_list {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 10px;
+}
+.index_list {
+    text-align: center;
+}
+.img_, .active_info, .update_time_div, .edit_and_del {
+    display: inline-block;
+}
+.delete_task_link {
+    display: block;
+}
+.edit_and_del {
+    float: right;
+}
+.like_bookmark {
+    padding-left: 10px;
+}
+.like_bookmark a {
+    background-color: #92cdb6;
+    padding: 10px;
+    border-radius: 8px 8px 0px 0px;
+    font-weight: bold;
+    padding-bottom: 12px;
+}
+.like_bookmark a:hover {
+    background-color: #c9b675;
+}
+.index_img {
+    width: 400px;
+    box-shadow: 0 0 5px;
+    margin: 10px;
+}
