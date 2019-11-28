@@ -56,8 +56,10 @@ a:hover {
     padding: 10px;
     border-radius: 8px 8px 0px 0px;
     font-weight: bold;
-    padding-bottom: 12px;
+    padding-bottom: 60px;
 }
+
+
 .like_bookmark a:hover {
     background-color: #c9b675;
 }
